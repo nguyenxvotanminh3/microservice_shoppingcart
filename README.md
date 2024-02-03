@@ -1,2 +1,4 @@
 # microservice_shoppingcart
-No des
+This is api for shopping cart, build as microservices.
+Database : Mongodb , Mysql
+
