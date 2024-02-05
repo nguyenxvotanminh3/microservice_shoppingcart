@@ -32,11 +32,13 @@ public class OrderService {
                 .map(this::mapToDto)
                 .toList();
         order.setOrderLineItemsList(orderLineItems);
-
+        List<String> skuCodes = order.getOrderLineItemsList().stream().map(OrderLineItems::getSkuCode).toList();
 
         //Call inventory-service and place order
         Boolean result = webClient.get()
-                .uri("http://localhost:8082/api/inventory")
+                .uri("http://localhost:8082/api/inventory" ,
+                        uriBuilder -> uriBuilder.queryParam("skuCode",skuCodes).build()
+                )
                 .retrieve()
                 .bodyToMono(Boolean.class)
                 .block();
